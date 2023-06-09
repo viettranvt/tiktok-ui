@@ -1,5 +1,5 @@
-import { NoneLayout } from '~/components/Layout';
-import HeaderOnly from '~/components/Layout/HeaderOnly';
+import { NoneLayout } from '~/components/Layouts';
+import HeaderOnly from '~/components/Layouts/HeaderOnly';
 import { LayoutProps } from '~/constant';
 import Following from '~/pages/Following';
 import Home from '~/pages/Home';
