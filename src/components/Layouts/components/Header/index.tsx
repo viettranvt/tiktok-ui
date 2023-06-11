@@ -12,6 +12,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
+import Button from '~/components/Button';
 
 const faCircleXmarkIcon = faCircleXmark as IconProp;
 const faMagnifyingGlassIcon = faMagnifyingGlass as IconProp;
@@ -63,7 +64,10 @@ function Header() {
             </button>
           </div>
         </Tippy>
-        <div className={styles.actions}></div>
+        <div className={styles.actions}>
+          <Button type="text">Upload</Button>
+          <Button type="primary">Login</Button>
+        </div>
       </div>
     </header>
   );
