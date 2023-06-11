@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Try it by click this [link](http://tiktok-fake.surge.sh/)
+
 ## Available Scripts
 
 In the project directory, you can run:
