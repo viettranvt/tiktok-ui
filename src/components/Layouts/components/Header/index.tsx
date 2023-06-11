@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleXmark,
   faMagnifyingGlass,
+  faPlus,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -17,6 +18,7 @@ import Button from '~/components/Button';
 const faCircleXmarkIcon = faCircleXmark as IconProp;
 const faMagnifyingGlassIcon = faMagnifyingGlass as IconProp;
 const faSpinnerIcon = faSpinner as IconProp;
+const faPlusIcon = faPlus as IconProp;
 
 function Header() {
   return (
@@ -65,7 +67,9 @@ function Header() {
           </div>
         </Tippy>
         <div className={styles.actions}>
-          <Button type="text">Upload</Button>
+          <Button type="text" lefIcon={<FontAwesomeIcon icon={faPlusIcon} />}>
+            Upload
+          </Button>
           <Button type="primary">Login</Button>
         </div>
       </div>

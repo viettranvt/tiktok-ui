@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import styles from './Button.module.scss';
 import { Link, LinkProps } from 'react-router-dom';
-import { FC } from 'react';
+import { FC, ForwardRefExoticComponent, RefAttributes } from 'react';
 
 interface Props {
   to?: string;
@@ -15,8 +15,14 @@ interface Props {
   rightIcon?: JSX.Element;
 }
 
+interface ComponentProps {
+  to: string;
+  href?: string;
+  onClick?: () => {};
+}
+
 const Button: FC<Props> = ({
-  to,
+  to = '#',
   href,
   onClick,
   type = 'default',
@@ -27,23 +33,23 @@ const Button: FC<Props> = ({
   rightIcon,
 }) => {
   let Component:
-    | string
-    | React.ForwardRefExoticComponent<
-        LinkProps & React.RefAttributes<HTMLAnchorElement>
-      > = 'button';
-  const props: any = {
+    | keyof JSX.IntrinsicElements
+    | ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>> =
+    'button';
+  const props: ComponentProps = {
     onClick,
+    to,
   };
 
   if (disabled) {
     props.onClick = undefined;
   }
 
-  if (to) {
-    props['to'] = to;
+  if (to && to !== '#') {
+    props.to = to;
     Component = Link;
   } else if (href) {
-    props['href'] = href;
+    props.href = href;
     Component = 'a';
   }
 
