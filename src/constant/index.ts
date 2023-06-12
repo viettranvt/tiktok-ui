@@ -6,7 +6,9 @@ export interface LayoutProps {
 }
 
 export interface MenuItemProps {
-  icon: JSX.Element;
+  icon?: JSX.Element;
+  code?: string;
   title: string;
   to?: string;
+  children?: MenuItemProps[];
 }

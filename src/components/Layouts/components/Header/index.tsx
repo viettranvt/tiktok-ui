@@ -21,32 +21,37 @@ import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import { MenuItemProps } from '~/constant';
 
-const faCircleXmarkIcon = faCircleXmark as IconProp;
-const faMagnifyingGlassIcon = faMagnifyingGlass as IconProp;
-const faSpinnerIcon = faSpinner as IconProp;
-const faPlusIcon = faPlus as IconProp;
-const faEllipsisVerticalIcon = faEllipsisVertical as IconProp;
-const faEarthAsiaIcon = faEarthAsia as IconProp;
-const faCircleQuestionIcon = faCircleQuestion as IconProp;
-const faKeyboardIcon = faKeyboard as IconProp;
-
 const MENU_ITEMS: MenuItemProps[] = [
   {
-    icon: <FontAwesomeIcon icon={faEarthAsiaIcon} />,
+    icon: <FontAwesomeIcon icon={faEarthAsia as IconProp} />,
     title: 'Language',
+    children: [
+      {
+        code: 'en',
+        title: 'English',
+      },
+      {
+        code: 'vi',
+        title: 'Viet Nam',
+      },
+    ],
   },
   {
-    icon: <FontAwesomeIcon icon={faCircleQuestionIcon} />,
+    icon: <FontAwesomeIcon icon={faCircleQuestion as IconProp} />,
     title: 'Feedback and help',
     to: '/feedback',
   },
   {
-    icon: <FontAwesomeIcon icon={faKeyboardIcon} />,
+    icon: <FontAwesomeIcon icon={faKeyboard as IconProp} />,
     title: 'Keyboard shortcuts',
   },
 ];
 
 function Header() {
+  const handleMenuChange = (menuItem: MenuItemProps) => {
+    console.log(menuItem);
+  };
+
   return (
     <header className={clsx(styles.wrapper)}>
       <div className={clsx(styles.inner)}>
@@ -79,27 +84,30 @@ function Header() {
             />
             {/* btn clear */}
             <button className={clsx(styles.clear)}>
-              <FontAwesomeIcon icon={faCircleXmarkIcon} />
+              <FontAwesomeIcon icon={faCircleXmark as IconProp} />
             </button>
             <FontAwesomeIcon
               className={clsx(styles.loading)}
-              icon={faSpinnerIcon}
+              icon={faSpinner as IconProp}
             />
 
             {/* btn search */}
             <button className={clsx(styles['search-btn'])}>
-              <FontAwesomeIcon icon={faMagnifyingGlassIcon} />
+              <FontAwesomeIcon icon={faMagnifyingGlass as IconProp} />
             </button>
           </div>
         </Tippy>
         <div className={styles.actions}>
-          <Button type="text" lefIcon={<FontAwesomeIcon icon={faPlusIcon} />}>
+          <Button
+            type="text"
+            lefIcon={<FontAwesomeIcon icon={faPlus as IconProp} />}
+          >
             Upload
           </Button>
           <Button type="primary">Login</Button>
-          <Menu items={MENU_ITEMS}>
+          <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
             <span className={clsx(styles['more-icon'])}>
-              <FontAwesomeIcon icon={faEllipsisVerticalIcon} />
+              <FontAwesomeIcon icon={faEllipsisVertical as IconProp} />
             </span>
           </Menu>
         </div>

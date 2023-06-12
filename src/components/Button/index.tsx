@@ -6,7 +6,7 @@ import { FC, ForwardRefExoticComponent, RefAttributes } from 'react';
 interface Props {
   to?: string;
   href?: string;
-  onClick?: () => {};
+  onClick?: () => void;
   type?: 'default' | 'primary' | 'outline' | 'text' | 'rounded';
   size?: 'small' | 'medium' | 'large';
   children?: JSX.Element | string;
@@ -19,7 +19,7 @@ interface Props {
 interface ComponentProps {
   to: string;
   href?: string;
-  onClick?: () => {};
+  onClick?: () => void;
 }
 
 const Button: FC<Props> = ({
