@@ -5,23 +5,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleQuestion,
   faCircleXmark,
+  faCloudArrowUp,
+  faCoins,
   faEarthAsia,
   faEllipsisVertical,
+  faGear,
   faKeyboard,
   faMagnifyingGlass,
+  faPaperPlane,
   faPlus,
+  faSignOut,
   faSpinner,
+  faMessage,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-// import 'tippy.js/dist/tippy.css';
-import Tippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css';
+import HeadlessTippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import { MenuItemProps } from '~/constant';
+import { Fragment } from 'react';
+import Tippy from '@tippyjs/react';
+import flower from '~/assets/images/Kuni_1616565154500.jpg';
 
-const MENU_ITEMS: MenuItemProps[] = [
+const NON_USER_MENU: MenuItemProps[] = [
   {
     icon: <FontAwesomeIcon icon={faEarthAsia as IconProp} />,
     title: 'Language',
@@ -47,10 +57,37 @@ const MENU_ITEMS: MenuItemProps[] = [
   },
 ];
 
+const USER_MENU: MenuItemProps[] = [
+  {
+    icon: <FontAwesomeIcon icon={faUser as IconProp} />,
+    title: 'View profile',
+    to: '/@user',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faCoins as IconProp} />,
+    title: 'Get coins',
+    to: '/coins',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faGear as IconProp} />,
+    title: 'Settings',
+    to: '/settings',
+  },
+  ...NON_USER_MENU,
+  {
+    icon: <FontAwesomeIcon icon={faSignOut as IconProp} />,
+    title: 'Log out',
+    to: '/logout',
+    separate: true,
+  },
+];
+
 function Header() {
   const handleMenuChange = (menuItem: MenuItemProps) => {
     console.log(menuItem);
   };
+
+  const currentUser = true;
 
   return (
     <header className={clsx(styles.wrapper)}>
@@ -59,8 +96,9 @@ function Header() {
         <div className={clsx(styles.logo)}>
           <img src={images.logo} alt="Tiktok" />
         </div>
+
         {/* search */}
-        <Tippy
+        <HeadlessTippy
           interactive={true}
           render={(attrs) => (
             <div
@@ -96,19 +134,64 @@ function Header() {
               <FontAwesomeIcon icon={faMagnifyingGlass as IconProp} />
             </button>
           </div>
-        </Tippy>
+        </HeadlessTippy>
+
+        {/* actions */}
         <div className={styles.actions}>
-          <Button
-            type="text"
-            lefIcon={<FontAwesomeIcon icon={faPlus as IconProp} />}
+          {currentUser ? (
+            <Fragment>
+              <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
+                <button>
+                  <FontAwesomeIcon
+                    className={clsx(styles['action-btn'])}
+                    icon={faCloudArrowUp as IconProp}
+                  />
+                </button>
+              </Tippy>
+              <Tippy delay={[0, 200]} content="Message" placement="bottom">
+                <button>
+                  <FontAwesomeIcon
+                    className={clsx(styles['action-btn'])}
+                    icon={faPaperPlane as IconProp}
+                  />
+                </button>
+              </Tippy>
+              <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
+                <button>
+                  <FontAwesomeIcon
+                    className={clsx(styles['action-btn'])}
+                    icon={faMessage as IconProp}
+                  />
+                </button>
+              </Tippy>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Button
+                type="text"
+                lefIcon={<FontAwesomeIcon icon={faPlus as IconProp} />}
+              >
+                Upload
+              </Button>
+              <Button type="primary">Login</Button>
+            </Fragment>
+          )}
+
+          <Menu
+            items={currentUser ? USER_MENU : NON_USER_MENU}
+            onChange={handleMenuChange}
           >
-            Upload
-          </Button>
-          <Button type="primary">Login</Button>
-          <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-            <span className={clsx(styles['more-icon'])}>
-              <FontAwesomeIcon icon={faEllipsisVertical as IconProp} />
-            </span>
+            {currentUser ? (
+              <img
+                className={clsx(styles['user-avatar'])}
+                alt="nguyen van a"
+                src={flower}
+              />
+            ) : (
+              <span className={clsx(styles['more-icon'])}>
+                <FontAwesomeIcon icon={faEllipsisVertical as IconProp} />
+              </span>
+            )}
           </Menu>
         </div>
       </div>

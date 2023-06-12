@@ -12,7 +12,9 @@ interface Props {
 const MenuItem: FC<Props> = ({ data, onClick }) => {
   return (
     <Button
-      className={clsx(styles['menu-item'])}
+      className={clsx(styles['menu-item'], {
+        [styles.separate]: data.separate,
+      })}
       lefIcon={data.icon}
       to={data.to}
       onClick={onClick}

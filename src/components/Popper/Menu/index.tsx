@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
 
-import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react/headless';
 import Header from './Header';
 import { MenuItemProps } from '~/constant';
 
@@ -56,8 +56,10 @@ const Menu: FC<Props> = ({ children, items, onChange }) => {
   return (
     <Tippy
       delay={[0, 500]}
+      offset={[12, 8]}
       interactive
       placement="bottom-end"
+      onHide={() => setHistory((prev) => prev.slice(0, 1))}
       render={(attrs) => (
         <div
           className={clsx(styles['menu-item-list'])}

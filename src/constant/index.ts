@@ -10,5 +10,6 @@ export interface MenuItemProps {
   code?: string;
   title: string;
   to?: string;
+  separate?: Boolean;
   children?: MenuItemProps[];
 }
