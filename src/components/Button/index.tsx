@@ -13,6 +13,7 @@ interface Props {
   disabled?: boolean;
   lefIcon?: JSX.Element;
   rightIcon?: JSX.Element;
+  className?: string;
 }
 
 interface ComponentProps {
@@ -31,6 +32,7 @@ const Button: FC<Props> = ({
   children,
   lefIcon,
   rightIcon,
+  className,
 }) => {
   let Component:
     | keyof JSX.IntrinsicElements
@@ -53,7 +55,7 @@ const Button: FC<Props> = ({
     Component = 'a';
   }
 
-  const classes = clsx(styles.wrapper, styles[size], styles[type], {
+  const classes = clsx(styles.wrapper, styles[size], styles[type], className, {
     [styles.disabled]: disabled,
   });
 

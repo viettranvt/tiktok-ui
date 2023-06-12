@@ -3,7 +3,11 @@ import styles from './Header.module.scss';
 import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faCircleQuestion,
   faCircleXmark,
+  faEarthAsia,
+  faEllipsisVertical,
+  faKeyboard,
   faMagnifyingGlass,
   faPlus,
   faSpinner,
@@ -14,11 +18,33 @@ import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
+import Menu from '~/components/Popper/Menu';
+import { MenuItemProps } from '~/constant';
 
 const faCircleXmarkIcon = faCircleXmark as IconProp;
 const faMagnifyingGlassIcon = faMagnifyingGlass as IconProp;
 const faSpinnerIcon = faSpinner as IconProp;
 const faPlusIcon = faPlus as IconProp;
+const faEllipsisVerticalIcon = faEllipsisVertical as IconProp;
+const faEarthAsiaIcon = faEarthAsia as IconProp;
+const faCircleQuestionIcon = faCircleQuestion as IconProp;
+const faKeyboardIcon = faKeyboard as IconProp;
+
+const MENU_ITEMS: MenuItemProps[] = [
+  {
+    icon: <FontAwesomeIcon icon={faEarthAsiaIcon} />,
+    title: 'Language',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faCircleQuestionIcon} />,
+    title: 'Feedback and help',
+    to: '/feedback',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faKeyboardIcon} />,
+    title: 'Keyboard shortcuts',
+  },
+];
 
 function Header() {
   return (
@@ -71,6 +97,11 @@ function Header() {
             Upload
           </Button>
           <Button type="primary">Login</Button>
+          <Menu items={MENU_ITEMS}>
+            <span className={clsx(styles['more-icon'])}>
+              <FontAwesomeIcon icon={faEllipsisVerticalIcon} />
+            </span>
+          </Menu>
         </div>
       </div>
     </header>
