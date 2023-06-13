@@ -3,25 +3,38 @@ import styles from './AccountItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import flower from '~/assets/images/Kuni_1616565154500.jpg';
+import Image from '../Image';
+import { UserDto } from '~/constant';
+import { Link } from 'react-router-dom';
 
 const faCheckCircleIcon = faCheckCircle as IconProp;
 
-function AccountItem() {
+interface Props {
+  data: UserDto;
+}
+
+function AccountItem({ data }: Props) {
   return (
-    <div className={clsx(styles.wrapper)}>
-      <img className={clsx(styles.avatar)} src={flower} alt="account_img" />
+    <Link to={`/@${data.nickname}`} className={clsx(styles.wrapper)}>
+      <Image
+        className={clsx(styles.avatar)}
+        src={data.avatar}
+        alt="account_img"
+      />
       <div className={clsx(styles.info)}>
         <h4 className={clsx(styles.name)}>
-          <span>Nguyen Van a</span>
-          <FontAwesomeIcon
-            className={clsx(styles.check)}
-            icon={faCheckCircleIcon}
-          />
+          <span>{data.full_name}</span>
+
+          {data.tick && (
+            <FontAwesomeIcon
+              className={clsx(styles.check)}
+              icon={faCheckCircleIcon}
+            />
+          )}
         </h4>
-        <span className={clsx(styles.username)}>nguyenvana</span>
+        <span className={clsx(styles.username)}>{data.nickname}</span>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -4,32 +4,27 @@ import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleQuestion,
-  faCircleXmark,
   faCloudArrowUp,
   faCoins,
   faEarthAsia,
   faEllipsisVertical,
   faGear,
   faKeyboard,
-  faMagnifyingGlass,
   faPaperPlane,
   faPlus,
   faSignOut,
-  faSpinner,
   faMessage,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import 'tippy.js/dist/tippy.css';
-import HeadlessTippy from '@tippyjs/react/headless';
-import { Wrapper as PopperWrapper } from '~/components/Popper';
-import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import { MenuItemProps } from '~/constant';
 import { Fragment } from 'react';
 import Tippy from '@tippyjs/react';
-import flower from '~/assets/images/Kuni_1616565154500.jpg';
+import Image from '../../../Image';
+import Search from '../Search';
 
 const NON_USER_MENU: MenuItemProps[] = [
   {
@@ -86,7 +81,6 @@ function Header() {
   const handleMenuChange = (menuItem: MenuItemProps) => {
     console.log(menuItem);
   };
-
   const currentUser = true;
 
   return (
@@ -94,47 +88,10 @@ function Header() {
       <div className={clsx(styles.inner)}>
         {/* logo */}
         <div className={clsx(styles.logo)}>
-          <img src={images.logo} alt="Tiktok" />
+          <Image src={images.logo} alt="Tiktok" />
         </div>
 
-        {/* search */}
-        <HeadlessTippy
-          interactive={true}
-          render={(attrs) => (
-            <div
-              className={clsx(styles['search-result'])}
-              tabIndex={-1}
-              {...attrs}
-            >
-              <PopperWrapper>
-                <h4 className={clsx(styles['search-title'])}>Accounts</h4>
-                <AccountItem />
-                <AccountItem />
-              </PopperWrapper>
-            </div>
-          )}
-        >
-          <div className={clsx(styles.search)}>
-            {/* search bar */}
-            <input
-              placeholder="Search accounts and videos"
-              spellCheck={false}
-            />
-            {/* btn clear */}
-            <button className={clsx(styles.clear)}>
-              <FontAwesomeIcon icon={faCircleXmark as IconProp} />
-            </button>
-            <FontAwesomeIcon
-              className={clsx(styles.loading)}
-              icon={faSpinner as IconProp}
-            />
-
-            {/* btn search */}
-            <button className={clsx(styles['search-btn'])}>
-              <FontAwesomeIcon icon={faMagnifyingGlass as IconProp} />
-            </button>
-          </div>
-        </HeadlessTippy>
+        <Search />
 
         {/* actions */}
         <div className={styles.actions}>
@@ -182,10 +139,10 @@ function Header() {
             onChange={handleMenuChange}
           >
             {currentUser ? (
-              <img
+              <Image
                 className={clsx(styles['user-avatar'])}
                 alt="nguyen van a"
-                src={flower}
+                src={images.defaultImage}
               />
             ) : (
               <span className={clsx(styles['more-icon'])}>
