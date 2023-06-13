@@ -12,37 +12,63 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { useEffect, useRef, useState } from 'react';
 import { UserDto } from '~/constant';
+import { useDebounce } from '~/hooks';
+import * as request from '~/utils/request';
 
 function Search() {
   const [searchResult, setSearchResult] = useState<UserDto[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [showResult, setShowResult] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const debounced = useDebounce(searchValue, 500);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!searchValue.trim()) {
+    if (!debounced.trim()) {
       setSearchResult([]);
       return;
     }
 
     setLoading(true);
 
-    fetch(
-      `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-        searchValue,
-      )}&type=less`,
-    )
-      .then((res) => res.json())
-      .then((res) => {
+    // fetch(
+    //   `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
+    //     debounced,
+    //   )}&type=less`,
+    // )
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     if (res.data) {
+    //       setSearchResult((res.data as UserDto[]) || []);
+    //     }
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
+
+    const handle = async () => {
+      try {
+        const res = await request.get('users/search', {
+          params: {
+            q: debounced,
+            type: 'less',
+          },
+        });
+
         if (res.data) {
           setSearchResult((res.data as UserDto[]) || []);
         }
-      })
-      .finally(() => {
+
         setLoading(false);
-      });
-  }, [searchValue]);
+      } catch (e) {
+        setLoading(false);
+      }
+    };
+
+    handle();
+  }, [debounced]);
 
   const handleClear = () => {
     setSearchValue('');
