@@ -49,9 +49,12 @@ const Menu: FC<Props> = ({ children, items, onChange }) => {
     });
   };
 
-  const backHandle = () => {
+  const handleBack = () => {
     setHistory((prev) => prev.slice(0, prev.length - 1));
   };
+
+  // Reset to first page;
+  const handlerResetMenu = () => setHistory((prev) => prev.slice(0, 1));
 
   return (
     // Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context.
@@ -61,7 +64,7 @@ const Menu: FC<Props> = ({ children, items, onChange }) => {
         offset={[12, 8]}
         interactive
         placement="bottom-end"
-        onHide={() => setHistory((prev) => prev.slice(0, 1))}
+        onHide={handlerResetMenu}
         hideOnClick={false}
         render={(attrs) => (
           <div
@@ -71,7 +74,7 @@ const Menu: FC<Props> = ({ children, items, onChange }) => {
           >
             <Wrapper className={clsx(styles['menu-wrapper'])}>
               {history.length > 1 && (
-                <Header title="Language" onBack={backHandle} />
+                <Header title="Language" onBack={handleBack} />
               )}
 
               <div className={clsx(styles['menu-body'])}> {renderItems()}</div>

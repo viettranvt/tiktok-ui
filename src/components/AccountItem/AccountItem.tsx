@@ -6,6 +6,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import Image from '../Image';
 import { UserDto } from '~/constant';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const faCheckCircleIcon = faCheckCircle as IconProp;
 
@@ -37,5 +38,9 @@ function AccountItem({ data }: Props) {
     </Link>
   );
 }
+
+AccountItem.prototype = {
+  data: PropTypes.object,
+};
 
 export default AccountItem;
