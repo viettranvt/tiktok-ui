@@ -13,7 +13,7 @@ import AccountItem from '~/components/AccountItem';
 import { useEffect, useRef, useState } from 'react';
 import { UserDto } from '~/constant';
 import { useDebounce } from '~/hooks';
-import * as request from '~/utils/request';
+import { search } from '~/services/searchService';
 
 function Search() {
   const [searchResult, setSearchResult] = useState<UserDto[]>([]);
@@ -50,17 +50,9 @@ function Search() {
 
     const handle = async () => {
       try {
-        const res = await request.get('users/search', {
-          params: {
-            q: debounced,
-            type: 'less',
-          },
-        });
+        const res = await search(debounced);
 
-        if (res.data) {
-          setSearchResult((res.data as UserDto[]) || []);
-        }
-
+        setSearchResult(res);
         setLoading(false);
       } catch (e) {
         setLoading(false);

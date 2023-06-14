@@ -23,10 +23,10 @@ import Menu from '~/components/Popper/Menu';
 import { MenuItemProps } from '~/constant';
 import { Fragment } from 'react';
 import Tippy from '@tippyjs/react';
-import Image from '../../../Image';
+import Image from '../../../components/Image';
 import Search from '../Search';
 import { Link } from 'react-router-dom';
-import routes from '~/config/route';
+import config from '~/config';
 
 const NON_USER_MENU: MenuItemProps[] = [
   {
@@ -89,7 +89,7 @@ function Header() {
     <header className={clsx(styles.wrapper)}>
       <div className={clsx(styles.inner)}>
         {/* logo */}
-        <Link to={routes} className={clsx(styles.logo)}>
+        <Link to={config.routes.home} className={clsx(styles.logo)}>
           <Image src={images.logo} alt="Tiktok" />
         </Link>
 
