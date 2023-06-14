@@ -54,30 +54,34 @@ const Menu: FC<Props> = ({ children, items, onChange }) => {
   };
 
   return (
-    <Tippy
-      delay={[0, 500]}
-      offset={[12, 8]}
-      interactive
-      placement="bottom-end"
-      onHide={() => setHistory((prev) => prev.slice(0, 1))}
-      render={(attrs) => (
-        <div
-          className={clsx(styles['menu-item-list'])}
-          tabIndex={-1}
-          {...attrs}
-        >
-          <Wrapper className={clsx(styles['menu-wrapper'])}>
-            {history.length > 1 && (
-              <Header title="Language" onBack={backHandle} />
-            )}
+    // Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context.
+    <div>
+      <Tippy
+        delay={[0, 500]}
+        offset={[12, 8]}
+        interactive
+        placement="bottom-end"
+        onHide={() => setHistory((prev) => prev.slice(0, 1))}
+        hideOnClick={false}
+        render={(attrs) => (
+          <div
+            className={clsx(styles['menu-item-list'])}
+            tabIndex={-1}
+            {...attrs}
+          >
+            <Wrapper className={clsx(styles['menu-wrapper'])}>
+              {history.length > 1 && (
+                <Header title="Language" onBack={backHandle} />
+              )}
 
-            {renderItems()}
-          </Wrapper>
-        </div>
-      )}
-    >
-      {children}
-    </Tippy>
+              <div className={clsx(styles['menu-body'])}> {renderItems()}</div>
+            </Wrapper>
+          </div>
+        )}
+      >
+        {children}
+      </Tippy>
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 import { NoneLayout } from '~/components/Layouts';
 import HeaderOnly from '~/components/Layouts/HeaderOnly';
+import routes from '~/config/route';
 import { LayoutProps } from '~/constant';
 import Following from '~/pages/Following';
 import Home from '~/pages/Home';
@@ -14,20 +15,20 @@ interface Route {
 
 const publicRoutes: Route[] = [
   {
-    path: '/',
+    path: routes.home,
     component: Home,
   },
   {
-    path: '/following',
+    path: routes.following,
     component: Following,
   },
   {
-    path: '/@:nickname',
+    path: routes.profile,
     component: Profile,
     layout: NoneLayout,
   },
   {
-    path: '/upload',
+    path: routes.upload,
     component: Upload,
     layout: HeaderOnly,
   },

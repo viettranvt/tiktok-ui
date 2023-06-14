@@ -79,55 +79,75 @@ function Search() {
     setShowResult(false);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value;
+
+    if (searchValue.startsWith(' ')) {
+      return;
+    }
+
+    setSearchValue(searchValue);
+  };
+
   return (
-    <HeadlessTippy
-      visible={showResult && searchResult.length > 0}
-      interactive={true}
-      render={(attrs) => (
-        <div className={clsx(styles['search-result'])} tabIndex={-1} {...attrs}>
-          <PopperWrapper>
-            <h4 className={clsx(styles['search-title'])}>Accounts</h4>
-            {searchResult.map((result) => (
-              <AccountItem key={result.id} data={result} />
-            ))}
-          </PopperWrapper>
-        </div>
-      )}
-      onClickOutside={handleHideResult}
-    >
-      <div className={clsx(styles.search)}>
-        {/* search bar */}
-        <input
-          ref={inputRef}
-          value={searchValue}
-          placeholder="Search accounts and videos"
-          spellCheck={false}
-          onChange={(e) => setSearchValue(e.target.value)}
-          onFocus={() => {
-            setShowResult(true);
-          }}
-        />
-
-        {/* btn clear */}
-        {!!searchValue && !loading && (
-          <button className={clsx(styles.clear)} onClick={handleClear}>
-            <FontAwesomeIcon icon={faCircleXmark as IconProp} />
-          </button>
+    // Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context.
+    <div>
+      <HeadlessTippy
+        visible={showResult && searchResult.length > 0}
+        interactive={true}
+        render={(attrs) => (
+          <div
+            className={clsx(styles['search-result'])}
+            tabIndex={-1}
+            {...attrs}
+          >
+            <PopperWrapper>
+              <h4 className={clsx(styles['search-title'])}>Accounts</h4>
+              {searchResult.map((result) => (
+                <AccountItem key={result.id} data={result} />
+              ))}
+            </PopperWrapper>
+          </div>
         )}
-
-        {loading && (
-          <FontAwesomeIcon
-            className={clsx(styles.loading)}
-            icon={faSpinner as IconProp}
+        onClickOutside={handleHideResult}
+      >
+        <div className={clsx(styles.search)}>
+          {/* search bar */}
+          <input
+            ref={inputRef}
+            value={searchValue}
+            placeholder="Search accounts and videos"
+            spellCheck={false}
+            onChange={handleChange}
+            onFocus={() => {
+              setShowResult(true);
+            }}
           />
-        )}
 
-        {/* btn search */}
-        <button className={clsx(styles['search-btn'])}>
-          <FontAwesomeIcon icon={faMagnifyingGlass as IconProp} />
-        </button>
-      </div>
-    </HeadlessTippy>
+          {/* btn clear */}
+          {!!searchValue && !loading && (
+            <button className={clsx(styles.clear)} onClick={handleClear}>
+              <FontAwesomeIcon icon={faCircleXmark as IconProp} />
+            </button>
+          )}
+
+          {loading && (
+            <FontAwesomeIcon
+              className={clsx(styles.loading)}
+              icon={faSpinner as IconProp}
+            />
+          )}
+
+          {/* btn search */}
+          <button
+            className={clsx(styles['search-btn'])}
+            onMouseDown={(e) => e.preventDefault()}
+          >
+            <FontAwesomeIcon icon={faMagnifyingGlass as IconProp} />
+          </button>
+        </div>
+      </HeadlessTippy>
+    </div>
   );
 }
 

@@ -25,6 +25,8 @@ import { Fragment } from 'react';
 import Tippy from '@tippyjs/react';
 import Image from '../../../Image';
 import Search from '../Search';
+import { Link } from 'react-router-dom';
+import routes from '~/config/route';
 
 const NON_USER_MENU: MenuItemProps[] = [
   {
@@ -87,9 +89,9 @@ function Header() {
     <header className={clsx(styles.wrapper)}>
       <div className={clsx(styles.inner)}>
         {/* logo */}
-        <div className={clsx(styles.logo)}>
+        <Link to={routes} className={clsx(styles.logo)}>
           <Image src={images.logo} alt="Tiktok" />
-        </div>
+        </Link>
 
         <Search />
 
