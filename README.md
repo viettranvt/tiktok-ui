@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Getting Started with Tiktok App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+![tiktok](https://i.imgur.com/QHgeBRw.png)
 
 Try it by click this [link](http://tiktok-fake.surge.sh/)
 
