@@ -4,16 +4,13 @@ import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleQuestion,
-  faCloudArrowUp,
   faCoins,
   faEarthAsia,
   faEllipsisVertical,
   faGear,
   faKeyboard,
-  faPaperPlane,
   faPlus,
   faSignOut,
-  faMessage,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -27,6 +24,7 @@ import Image from '../../../components/Image';
 import Search from '../Search';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 
 const NON_USER_MENU: MenuItemProps[] = [
   {
@@ -100,27 +98,19 @@ function Header() {
           {currentUser ? (
             <Fragment>
               <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
-                <button>
-                  <FontAwesomeIcon
-                    className={clsx(styles['action-btn'])}
-                    icon={faCloudArrowUp as IconProp}
-                  />
+                <button className={clsx(styles['action-btn'])}>
+                  <UploadIcon />
                 </button>
               </Tippy>
               <Tippy delay={[0, 200]} content="Message" placement="bottom">
-                <button>
-                  <FontAwesomeIcon
-                    className={clsx(styles['action-btn'])}
-                    icon={faPaperPlane as IconProp}
-                  />
+                <button className={clsx(styles['action-btn'])}>
+                  <MessageIcon />
                 </button>
               </Tippy>
               <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
-                <button>
-                  <FontAwesomeIcon
-                    className={clsx(styles['action-btn'])}
-                    icon={faMessage as IconProp}
-                  />
+                <button className={clsx(styles['action-btn'])}>
+                  <InboxIcon />
+                  <span className={clsx(styles.badge)}>12</span>
                 </button>
               </Tippy>
             </Fragment>

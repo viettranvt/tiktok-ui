@@ -1,11 +1,7 @@
 import styles from './Search.module.scss';
 import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCircleXmark,
-  faMagnifyingGlass,
-  faSpinner,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import HeadlessTippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -14,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { UserDto } from '~/constant';
 import { useDebounce } from '~/hooks';
 import { search } from '~/services/searchService';
+import { SearchIcon } from '~/components/Icons';
 
 function Search() {
   const [searchResult, setSearchResult] = useState<UserDto[]>([]);
@@ -135,7 +132,7 @@ function Search() {
             className={clsx(styles['search-btn'])}
             onMouseDown={(e) => e.preventDefault()}
           >
-            <FontAwesomeIcon icon={faMagnifyingGlass as IconProp} />
+            <SearchIcon />
           </button>
         </div>
       </HeadlessTippy>
