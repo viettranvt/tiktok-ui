@@ -10,6 +10,7 @@ import {
   UserGroupActiveIcon,
   UserGroupIcon,
 } from '~/components/Icons';
+import SuggestAccounts from '~/components/SuggestedAccounts';
 
 function Sidebar() {
   return (
@@ -34,6 +35,13 @@ function Sidebar() {
           activeIcon={<LiveActiveIcon />}
         />
       </Menu>
+
+      <SuggestAccounts
+        keyWord={'le'}
+        hideButtonFollow={false}
+        label="Suggested accounts"
+      />
+      <SuggestAccounts keyWord={'ng'} label="Following accounts" />
     </aside>
   );
 }
